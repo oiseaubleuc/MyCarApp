@@ -1,0 +1,39 @@
+﻿<Window x:Class="MyCarApp.AddCar"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Advertentie Opmaken - Auto Toevoegen" Height="450" Width="500">
+    <Grid>
+        <StackPanel Margin="10">
+            <!-- Afbeelding selecteren -->
+            <Label Content="Afbeelding" />
+            <StackPanel Orientation="Horizontal">
+                <TextBox x:Name="ImagePathTextBox" Width="300" IsReadOnly="True" />
+                <Button Content="Afbeelding Toevoegen" Click="AddImageButton_Click" Width="150" Margin="10,0,0,0"/>
+            </StackPanel>
+
+            <!-- Model (Titel van de auto) -->
+            <Label Content="Model (Titel)" />
+            <TextBox x:Name="ModelTextBox" Width="300" />
+
+            <!-- Kleur -->
+            <Label Content="Kleur" />
+            <TextBox x:Name="ColorTextBox" Width="300" />
+
+            <!-- Brandstoftype -->
+            <Label Content="Brandstoftype" />
+            <ComboBox x:Name="FuelTypeComboBox" Width="300" DisplayMemberPath="Name" />
+
+            <!-- Prijs -->
+            <Label Content="Prijs" />
+            <TextBox x:Name="PriceTextBox" Width="300" />
+
+            <!-- Omschrijving -->
+            <Label Content="Omschrijving" />
+            <TextBox x:Name="DescriptionTextBox" Width="300" Height="60" TextWrapping="Wrap" />
+
+            <!-- Toevoegen knop -->
+            <Button Content="Auto Toevoegen" Click="AddCarButton_Click" HorizontalAlignment="Center" Margin="10"/>
+        </StackPanel>
+    </Grid>
+</Window>
+

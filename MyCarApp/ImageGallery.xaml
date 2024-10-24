@@ -1,0 +1,8 @@
+﻿<Window x:Class="MyCarApp.ImageGallery"
+        Title="Afbeeldingen" Height="500" Width="600">
+    <StackPanel>
+        <Image x:Name="CarImage" Height="300" />
+        <Button Content="Volgende" Click="NextImage_Click" />
+        <Button Content="Vorige" Click="PreviousImage_Click" />
+    </StackPanel>
+</Window>

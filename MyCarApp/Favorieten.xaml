@@ -1,0 +1,8 @@
+﻿<ListView x:Name="FavoritesListView" ItemsSource="{Binding Favorites}">
+    <ListView.View>
+        <GridView>
+            <GridViewColumn Header="Model" DisplayMemberBinding="{Binding Model}" />
+            <GridViewColumn Header="Prijs" DisplayMemberBinding="{Binding Price}" />
+        </GridView>
+    </ListView.View>
+</ListView>

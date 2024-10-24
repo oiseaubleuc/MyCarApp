@@ -1,0 +1,22 @@
+﻿<Window x:Class="MyCarApp.StatisticsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        Title="Statistieken" Height="400" Width="600">
+    <Grid>
+        <StackPanel Margin="10">
+            <TextBlock Text="Meest Bekeken Auto's" FontSize="18" FontWeight="Bold" />
+            <lvc:CartesianChart x:Name="CarViewChart" Height="300">
+                <lvc:CartesianChart.Series>
+                    <lvc:ColumnSeries Values="{Binding CarViewValues}" Title="Weergaven"/>
+                </lvc:CartesianChart.Series>
+                <lvc:CartesianChart.AxisX>
+                    <lvc:Axis Title="Auto" Labels="{Binding CarLabels}" />
+                </lvc:CartesianChart.AxisX>
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis Title="Weergaven" LabelFormatter="{Binding Formatter}" />
+                </lvc:CartesianChart.AxisY>
+            </lvc:CartesianChart>
+        </StackPanel>
+    </Grid>
+</Window>
