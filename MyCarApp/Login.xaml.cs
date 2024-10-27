@@ -15,12 +15,13 @@ using System.Windows.Shapes;
 using BCrypt.Net;
 using System.Windows;
 
+
+
 namespace MyCarApp
 {
     public partial class Login : Window
     {
-        // Replace with your hashed password
-        private readonly string storedHashedPassword = "$2a$11$XjQYdpOfjjwVRLk8frvPeOvTfTRgqXESY2piY.HITz5jTFBgwC5S6"; // Hashed "framework123"
+        private readonly string storedHashedPassword = "$2a$11$XjQYdpOfjjwVRLk8frvPeOvTfTRgqXESY2piY.HITz5jTFBgwC5S6"; 
 
         public Login()
         {
@@ -29,20 +30,26 @@ namespace MyCarApp
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            string username = UsernameTextBox.Text;
-            string password = PasswordBox.Password;
+            try
+            {
+                string username = UsernameTextBox.Text;
+                string password = PasswordBox.Password;
 
-            // Check username and password
-            if (username == "ehbschool" && BCrypt.Verify(password, storedHashedPassword))
-            {
-                MessageBox.Show("Login succesvol!");
-                AdminPage adminPage = new AdminPage(); // Assuming AdminPage is the name of the admin window
-                adminPage.Show();
-                this.Close();
+                if (username == "ehbschool" && BCrypt.Net.BCrypt.Verify(password, storedHashedPassword))
+                {
+                    MessageBox.Show("Login succesvol!");
+            
+                 
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Ongeldige gebruikersnaam of wachtwoord.");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Ongeldige gebruikersnaam of wachtwoord.");
+                MessageBox.Show($"Er is een fout opgetreden tijdens het inloggen: {ex.Message}", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
