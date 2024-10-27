@@ -32,8 +32,15 @@ namespace MyCarApp
         // Laad brandstoftypes en categorieën
         private void LoadFuelTypesAndCategories()
         {
-            FuelTypeComboBox.ItemsSource = _context.FuelTypes.ToList();
-            CategoryComboBox.ItemsSource = _context.Categories.ToList();
+            try
+            {
+                FuelTypeComboBox.ItemsSource = _context.FuelTypes.ToList();
+                CategoryComboBox.ItemsSource = _context.Categories.ToList();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Fout bij het laden van brandstoftypes of categorieën: {ex.Message}", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         // Methode om een afbeelding toe te voegen
@@ -53,21 +60,48 @@ namespace MyCarApp
         // Auto toevoegen
         private void AddCarButton_Click(object sender, RoutedEventArgs e)
         {
-            var car = new Car
+            try
             {
-                Model = ModelTextBox.Text,
-                Color = ColorTextBox.Text,
-                Price = decimal.Parse(PriceTextBox.Text),
-                Description = DescriptionTextBox.Text,
-                ImagePath = ImagePathTextBox.Text,
-                FuelTypeId = (FuelTypeComboBox.SelectedItem as FuelType).Id,
-                CategoryId = (CategoryComboBox.SelectedItem as Category).Id
-            };
+                if (ValidateForm())
+                {
+                    var car = new Car
+                    {
+                        Model = ModelTextBox.Text,
+                        Color = ColorTextBox.Text,
+                        Price = decimal.Parse(PriceTextBox.Text),
+                        Description = DescriptionTextBox.Text,
+                        ImagePath = ImagePathTextBox.Text,
+                        FuelTypeId = (FuelTypeComboBox.SelectedItem as FuelType)?.Id ?? 0,
+                        CategoryId = (CategoryComboBox.SelectedItem as Category)?.Id ?? 0
+                    };
 
-            _context.Cars.Add(car);
-            _context.SaveChanges();
-            MessageBox.Show("Auto succesvol toegevoegd!");
-            this.Close();
+                    _context.Cars.Add(car);
+                    _context.SaveChanges();
+                    MessageBox.Show("Auto succesvol toegevoegd!", "Informatie", MessageBoxButton.OK, MessageBoxImage.Information);
+                    this.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Fout bij het toevoegen van de auto: {ex.Message}", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        // Validatie van het formulier
+        private bool ValidateForm()
+        {
+            if (string.IsNullOrWhiteSpace(ModelTextBox.Text) ||
+                string.IsNullOrWhiteSpace(ColorTextBox.Text) ||
+                string.IsNullOrWhiteSpace(PriceTextBox.Text) ||
+                !decimal.TryParse(PriceTextBox.Text, out _) ||
+                FuelTypeComboBox.SelectedItem == null ||
+                CategoryComboBox.SelectedItem == null)
+            {
+                MessageBox.Show("Alle velden moeten worden ingevuld en de prijs moet een geldig getal zijn.", "Waarschuwing", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
+            return true;
         }
     }
 }

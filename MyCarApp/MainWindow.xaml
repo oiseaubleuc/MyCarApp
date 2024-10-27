@@ -26,7 +26,7 @@
             <!-- Paginering Knoppen -->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Content="Vorige" Click="PreviousPage_Click" Width="100" Margin="10,0"/>
-                <TextBlock x:Name="PageInfoTextBlock" FontSize="16" VerticalAlignment="Center"/>
+                <TextBlock x:Name="PageInfoTextBlock" FontSize="16" VerticalAlignment="Center" Margin="10"/>
                 <Button Content="Volgende" Click="NextPage_Click" Width="100" Margin="10,0"/>
             </StackPanel>
 

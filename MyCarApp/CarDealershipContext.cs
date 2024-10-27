@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic.FileIO;
 
+
 namespace MyCarApp.Models
 {
     public class CarDealershipContext : DbContext
@@ -15,6 +16,7 @@ namespace MyCarApp.Models
         public DbSet<Car> Cars { get; set; }
         public DbSet<FuelType> FuelTypes { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Customer> Customers { get; set; }  // Voeg de DbSet voor klanten toe
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
