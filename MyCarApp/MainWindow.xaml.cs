@@ -70,10 +70,13 @@ namespace MyCarApp
 
         private void FilterCars()
         {
+            var selectedFuelType = FuelTypeFilterComboBox.SelectedItem as ComboBoxItem;
+            string fuelType = selectedFuelType?.Content.ToString();
+
             var filteredCars = _cars.Where(c =>
                 (string.IsNullOrWhiteSpace(ModelFilterTextBox.Text) || c.Model.Contains(ModelFilterTextBox.Text)) &&
                 (string.IsNullOrWhiteSpace(ColorFilterTextBox.Text) || c.Color.Contains(ColorFilterTextBox.Text)) &&
-                (FuelTypeFilterComboBox.SelectedIndex == 0 || c.FuelType.Id == ((FuelTypeFilterComboBox.SelectedItem as FuelType)?.Id ?? 0))).ToList();
+                (FuelTypeFilterComboBox.SelectedIndex == 0 || c.FuelType.Name == fuelType)).ToList();
 
             CarListView.ItemsSource = filteredCars.Skip((_currentPage - 1) * _itemsPerPage).Take(_itemsPerPage).ToList();
         }

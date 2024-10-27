@@ -12,12 +12,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+using BCrypt.Net;
 using System.Windows;
 
 namespace MyCarApp
 {
     public partial class Login : Window
     {
+        // Replace with your hashed password
+        private readonly string storedHashedPassword = "$2a$11$XjQYdpOfjjwVRLk8frvPeOvTfTRgqXESY2piY.HITz5jTFBgwC5S6"; // Hashed "framework123"
+
         public Login()
         {
             InitializeComponent();
@@ -28,12 +32,12 @@ namespace MyCarApp
             string username = UsernameTextBox.Text;
             string password = PasswordBox.Password;
 
-           
-            if (username == "admin" && password == "admin123")
+            // Check username and password
+            if (username == "ehbschool" && BCrypt.Verify(password, storedHashedPassword))
             {
                 MessageBox.Show("Login succesvol!");
-                MainWindow mainWindow = new MainWindow();
-                mainWindow.Show();
+                AdminPage adminPage = new AdminPage(); // Assuming AdminPage is the name of the admin window
+                adminPage.Show();
                 this.Close();
             }
             else

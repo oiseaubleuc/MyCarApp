@@ -38,9 +38,9 @@
             <TextBlock Text="Advertentielijst" FontSize="24" FontWeight="Bold" Foreground="White" Margin="10,0,0,10"/>
 
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <TextBox x:Name="ModelFilterTextBox" Width="150" Margin="5" TextChanged="FilterCars" Text="Model Filter"/>
-                <TextBox x:Name="ColorFilterTextBox" Width="150" Margin="5" TextChanged="FilterCars" Text="Kleur Filter"/>
-                <ComboBox x:Name="FuelTypeFilterComboBox" Width="150" Margin="5" SelectionChanged="FilterCars">
+                <TextBox x:Name="ModelFilterTextBox" Width="150" Margin="5" TextChanged="ModelFilterTextBox_TextChanged"/>
+                <TextBox x:Name="ColorFilterTextBox" Width="150" Margin="5" TextChanged="ColorFilterTextBox_TextChanged"/>
+                <ComboBox x:Name="FuelTypeFilterComboBox" Width="150" Margin="5" SelectionChanged="FuelTypeFilterComboBox_SelectionChanged">
                     <ComboBoxItem Content="Alle"/>
                     <ComboBoxItem Content="Benzine"/>
                     <ComboBoxItem Content="Diesel"/>

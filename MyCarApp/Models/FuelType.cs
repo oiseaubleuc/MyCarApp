@@ -11,7 +11,7 @@ namespace MyCarApp.Models
     public class FuelType
     {
         public int Id { get; set; }
-        public string Name { get; set; }  // Benzine, Diesel, Elektrisch
-        public ICollection<Car> Cars { get; set; }  // Een brandstoftype kan meerdere auto's hebben
+        public string Name { get; set; } 
+        public ICollection<Car> Cars { get; set; } 
     }
 }
