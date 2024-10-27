@@ -28,7 +28,7 @@ namespace MyCarApp
             string username = UsernameTextBox.Text;
             string password = PasswordBox.Password;
 
-            // Simpele controle voor admin login
+           
             if (username == "admin" && password == "admin123")
             {
                 MessageBox.Show("Login succesvol!");

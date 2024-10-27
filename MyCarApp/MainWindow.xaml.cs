@@ -1,15 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyCarApp.Models;
-using System.Text;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace MyCarApp
 {
@@ -23,13 +17,14 @@ namespace MyCarApp
         {
             InitializeComponent();
             LoadCars();
+            SetupFilters();
         }
 
         private void LoadCars()
         {
             using (var context = new CarDealershipContext())
             {
-                _cars = context.Cars.ToList();
+                _cars = context.Cars.Include(c => c.FuelType).ToList();
                 UpdateCarListView();
             }
         }
@@ -38,7 +33,7 @@ namespace MyCarApp
         {
             var carsToShow = _cars.Skip((_currentPage - 1) * _itemsPerPage).Take(_itemsPerPage).ToList();
             CarListView.ItemsSource = carsToShow;
-            PageInfoTextBlock.Text = $"Pagina {_currentPage}";
+            PageInfoTextBlock.Text = $"Pagina {_currentPage} van {(_cars.Count + _itemsPerPage - 1) / _itemsPerPage}";
         }
 
         private void PreviousPage_Click(object sender, RoutedEventArgs e)
@@ -61,11 +56,26 @@ namespace MyCarApp
 
         private void AddCar_Click(object sender, RoutedEventArgs e)
         {
-            // Hier kun je de logica toevoegen om een nieuwe auto toe te voegen.
             AddCar addCarWindow = new AddCar();
             addCarWindow.ShowDialog();
-            LoadCars(); // Vernieuw de lijst nadat je een auto hebt toegevoegd
+            LoadCars();
+        }
+
+        private void SetupFilters()
+        {
+            ModelFilterTextBox.TextChanged += (s, e) => FilterCars();
+            ColorFilterTextBox.TextChanged += (s, e) => FilterCars();
+            FuelTypeFilterComboBox.SelectionChanged += (s, e) => FilterCars();
+        }
+
+        private void FilterCars()
+        {
+            var filteredCars = _cars.Where(c =>
+                (string.IsNullOrWhiteSpace(ModelFilterTextBox.Text) || c.Model.Contains(ModelFilterTextBox.Text)) &&
+                (string.IsNullOrWhiteSpace(ColorFilterTextBox.Text) || c.Color.Contains(ColorFilterTextBox.Text)) &&
+                (FuelTypeFilterComboBox.SelectedIndex == 0 || c.FuelType.Id == ((FuelTypeFilterComboBox.SelectedItem as FuelType)?.Id ?? 0))).ToList();
+
+            CarListView.ItemsSource = filteredCars.Skip((_currentPage - 1) * _itemsPerPage).Take(_itemsPerPage).ToList();
         }
     }
-
 }

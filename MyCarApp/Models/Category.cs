@@ -11,7 +11,7 @@ namespace MyCarApp.Models
     public class Category
     {
         public int Id { get; set; }
-        public string Name { get; set; }  // Naam van de categorie (bijv. SUV, Sedan)
-        public ICollection<Car> Cars { get; set; }  // Een categorie kan meerdere auto's hebben
+        public string Name { get; set; } 
+        public ICollection<Car> Cars { get; set; } 
     }
 }

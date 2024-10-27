@@ -5,38 +5,38 @@
         Background="#2B2B2B">
     <Grid>
         <StackPanel Margin="10">
-            <!-- Afbeelding selecteren -->
+         
             <Label Content="Afbeelding" Foreground="White" />
             <StackPanel Orientation="Horizontal">
                 <TextBox x:Name="ImagePathTextBox" Width="300" IsReadOnly="True" Background="White" />
                 <Button Content="Afbeelding Toevoegen" Click="AddImageButton_Click" Width="150" Margin="10,0,0,0" />
             </StackPanel>
 
-            <!-- Model (Titel van de auto) -->
+          
             <Label Content="Model (Titel)" Foreground="White" />
             <TextBox x:Name="ModelTextBox" Width="300" Background="White" ToolTip="Vul het model van de auto in" />
 
-            <!-- Kleur -->
+          
             <Label Content="Kleur" Foreground="White" />
             <TextBox x:Name="ColorTextBox" Width="300" Background="White" ToolTip="Vul de kleur van de auto in" />
 
-            <!-- Brandstoftype -->
+           
             <Label Content="Brandstoftype" Foreground="White" />
             <ComboBox x:Name="FuelTypeComboBox" Width="300" Background="White" DisplayMemberPath="Name" ToolTip="Selecteer het brandstoftype" />
 
-            <!-- Categorie -->
+          
             <Label Content="Categorie" Foreground="White" />
             <ComboBox x:Name="CategoryComboBox" Width="300" Background="White" DisplayMemberPath="Name" ToolTip="Selecteer de categorie van de auto" />
 
-            <!-- Prijs -->
+            
             <Label Content="Prijs" Foreground="White" />
             <TextBox x:Name="PriceTextBox" Width="300" Background="White" ToolTip="Vul de prijs van de auto in" />
 
-            <!-- Omschrijving -->
+            
             <Label Content="Omschrijving" Foreground="White" />
             <TextBox x:Name="DescriptionTextBox" Width="300" Height="60" TextWrapping="Wrap" Background="White" ToolTip="Vul een korte beschrijving van de auto in" />
 
-            <!-- Toevoegen knop -->
+            
             <Button Content="Auto Toevoegen" Click="AddCarButton_Click" HorizontalAlignment="Center" Margin="10"/>
         </StackPanel>
     </Grid>

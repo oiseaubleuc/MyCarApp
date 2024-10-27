@@ -14,9 +14,7 @@ using System.Windows.Shapes;
 
 namespace MyCarApp
 {
-    /// <summary>
-    /// Interaction logic for Favorieten.xaml
-    /// </summary>
+    
     public partial class Favorieten : Window
     {
         public Favorieten()

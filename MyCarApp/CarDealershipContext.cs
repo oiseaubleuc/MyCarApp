@@ -16,8 +16,7 @@ namespace MyCarApp.Models
         public DbSet<Car> Cars { get; set; }
         public DbSet<FuelType> FuelTypes { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<Customer> Customers { get; set; }  // Voeg de DbSet voor klanten toe
-
+        public DbSet<Customer> Customers { get; set; } 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Data Source=mycarapp.db");

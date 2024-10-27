@@ -3,10 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Afbeeldingen" Height="500" Width="600">
     <Grid>
-        <!-- Image Placeholder -->
+        
         <Image x:Name="CarImage" Height="300" VerticalAlignment="Top" />
 
-        <!-- Buttons Section -->
+       
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,10">
             <Button Content="Vorige" Click="PreviousImage_Click" Width="100" Margin="5"/>
             <Button Content="Volgende" Click="NextImage_Click" Width="100" Margin="5"/>

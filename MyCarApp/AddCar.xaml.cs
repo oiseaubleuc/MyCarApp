@@ -29,7 +29,7 @@ namespace MyCarApp
             LoadFuelTypesAndCategories();
         }
 
-        // Laad brandstoftypes en categorieën
+        
         private void LoadFuelTypesAndCategories()
         {
             try
@@ -43,7 +43,7 @@ namespace MyCarApp
             }
         }
 
-        // Methode om een afbeelding toe te voegen
+        
         private void AddImageButton_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog
@@ -57,7 +57,7 @@ namespace MyCarApp
             }
         }
 
-        // Auto toevoegen
+        
         private void AddCarButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -87,7 +87,7 @@ namespace MyCarApp
             }
         }
 
-        // Validatie van het formulier
+        
         private bool ValidateForm()
         {
             if (string.IsNullOrWhiteSpace(ModelTextBox.Text) ||

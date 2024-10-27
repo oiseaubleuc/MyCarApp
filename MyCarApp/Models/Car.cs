@@ -10,12 +10,12 @@ namespace MyCarApp.Models
     public class Car
     {
         public int Id { get; set; }
-        public string Model { get; set; } = string.Empty;  // Standaardwaarde
-        public string Color { get; set; } = string.Empty;  // Standaardwaarde
+        public string Model { get; set; } = string.Empty; 
+        public string Color { get; set; } = string.Empty;  
         public decimal Price { get; set; }
-        public string Description { get; set; } = string.Empty;  // Standaardwaarde
-        public string ImagePath { get; set; } = string.Empty;  // Standaardwaarde
-        public int ViewCount { get; set; }  // Aantal weergaven voor statistieken
+        public string Description { get; set; } = string.Empty; 
+        public string ImagePath { get; set; } = string.Empty;
+        public int ViewCount { get; set; }  
 
         public int FuelTypeId { get; set; }
         public FuelType FuelType { get; set; }

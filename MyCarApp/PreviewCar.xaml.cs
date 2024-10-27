@@ -23,7 +23,6 @@ namespace MyCarApp
             InitializeComponent();
             DataContext = car;
 
-            // Toon de afbeelding als er een afbeeldingspad is ingevoerd
             if (!string.IsNullOrEmpty(car.ImagePath))
             {
                 CarImage.Source = new BitmapImage(new Uri(car.ImagePath));
