@@ -5,6 +5,13 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
+using Microsoft.EntityFrameworkCore;
+using MyCarApp.Models;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
+
 namespace MyCarApp
 {
     public partial class MainWindow : Window
@@ -16,14 +23,11 @@ namespace MyCarApp
         public MainWindow()
         {
             InitializeComponent();
-            try
+            if (!System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
             {
+                DataContext = new CarViewModel();
                 LoadCars();
                 SetupFilters();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Fout bij het initialiseren: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -59,33 +63,19 @@ namespace MyCarApp
 
         private void PreviousPage_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (_currentPage > 1)
             {
-                if (_currentPage > 1)
-                {
-                    _currentPage--;
-                    UpdateCarListView();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Fout bij vorige pagina: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                _currentPage--;
+                UpdateCarListView();
             }
         }
 
         private void NextPage_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (_currentPage * _itemsPerPage < _cars.Count)
             {
-                if (_currentPage * _itemsPerPage < _cars.Count)
-                {
-                    _currentPage++;
-                    UpdateCarListView();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Fout bij volgende pagina: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                _currentPage++;
+                UpdateCarListView();
             }
         }
 
@@ -107,14 +97,29 @@ namespace MyCarApp
         {
             try
             {
-                ModelFilterTextBox.TextChanged += (s, e) => FilterCars();
-                ColorFilterTextBox.TextChanged += (s, e) => FilterCars();
-                FuelTypeFilterComboBox.SelectionChanged += (s, e) => FilterCars();
+                ModelFilterTextBox.TextChanged += ModelFilterTextBox_TextChanged;
+                ColorFilterTextBox.TextChanged += ColorFilterTextBox_TextChanged;
+                FuelTypeFilterComboBox.SelectionChanged += FuelTypeFilterComboBox_SelectionChanged;
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Fout bij het instellen van filters: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void ModelFilterTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            FilterCars();
+        }
+
+        private void ColorFilterTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            FilterCars();
+        }
+
+        private void FuelTypeFilterComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            FilterCars();
         }
 
         private void FilterCars()
@@ -138,3 +143,4 @@ namespace MyCarApp
         }
     }
 }
+
