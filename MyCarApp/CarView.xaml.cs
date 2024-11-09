@@ -1,25 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Collections.ObjectModel;
-using MyCarApp.Models;
-
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using MyCarApp.Models;
 
 namespace MyCarApp.ViewModels
 {
-    public class CarViewModel
+    public class CarViewModels
     {
         public ObservableCollection<Car> Cars { get; set; }
 
@@ -30,7 +14,7 @@ namespace MyCarApp.ViewModels
             set { _selectedCar = value; }
         }
 
-        public CarViewModel()
+        public CarViewModels()
         {
             // Voeg testdata toe of haal data op uit de database
             Cars = new ObservableCollection<Car>
@@ -40,8 +24,7 @@ namespace MyCarApp.ViewModels
             };
 
             // Stel een default geselecteerde auto in
-            SelectedCar = Car[0];
+            SelectedCar = Cars.FirstOrDefault(); // Zet de eerste auto in de lijst als standaard geselecteerde auto
         }
     }
 }
-

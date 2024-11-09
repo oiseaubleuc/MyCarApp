@@ -1,26 +1,23 @@
-﻿using Microsoft.VisualBasic.FileIO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace MyCarApp.Models
 {
     public class Car
     {
         public int Id { get; set; }
-        public string Model { get; set; } = string.Empty; 
-        public string Color { get; set; } = string.Empty;  
-        public decimal Price { get; set; }
-        public string Description { get; set; } = string.Empty; 
-        public string ImagePath { get; set; } = string.Empty;
-        public int ViewCount { get; set; }  
-
+        public string Model { get; set; }
+        public string Color { get; set; }
         public int FuelTypeId { get; set; }
-        public FuelType FuelType { get; set; }
+        public decimal Price { get; set; }
 
+        // Voeg deze eigenschappen toe
+        public string Description { get; set; }
+        public string ImagePath { get; set; }
         public int CategoryId { get; set; }
-        public Category Category { get; set; }
+        public int ViewCount { get; set; }
+
+        // Navigatie-eigenschap voor de relatie met FuelType
+        public FuelType FuelType { get; set; }
     }
 }
+

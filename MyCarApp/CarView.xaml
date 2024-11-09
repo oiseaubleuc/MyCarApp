@@ -4,31 +4,35 @@
              xmlns:vm="clr-namespace:MyCarApp.ViewModels"
              Width="400" Height="300">
     <UserControl.DataContext>
-        <vm:CarViewModel />
+        <vm:CarViewModels />
     </UserControl.DataContext>
 
-    <Grid Background="#2B2B2B" Padding="10">
+    <Grid Background="#2B2B2B" Margin="10">
         <StackPanel>
             <TextBlock Text="Autodetails" FontSize="24" FontWeight="Bold" Foreground="White" Margin="0,0,0,20"/>
 
+            <!-- Model -->
             <StackPanel Orientation="Horizontal" Margin="0,5">
                 <TextBlock Text="Model: " Foreground="White" FontWeight="Bold"/>
-                <TextBlock Text="{Binding SelectedCar.Model}" Foreground="White"/>
+                <TextBlock Text="{Binding SelectedCar.Model, TargetNullValue='N/A'}" Foreground="White"/>
             </StackPanel>
 
+            <!-- Kleur -->
             <StackPanel Orientation="Horizontal" Margin="0,5">
                 <TextBlock Text="Kleur: " Foreground="White" FontWeight="Bold"/>
-                <TextBlock Text="{Binding SelectedCar.Color}" Foreground="White"/>
+                <TextBlock Text="{Binding SelectedCar.Color, TargetNullValue='N/A'}" Foreground="White"/>
             </StackPanel>
 
+            <!-- Brandstoftype -->
             <StackPanel Orientation="Horizontal" Margin="0,5">
                 <TextBlock Text="Brandstoftype: " Foreground="White" FontWeight="Bold"/>
-                <TextBlock Text="{Binding SelectedCar.FuelType.Name}" Foreground="White"/>
+                <TextBlock Text="{Binding SelectedCar.FuelType.Name, TargetNullValue='N/A'}" Foreground="White"/>
             </StackPanel>
 
+            <!-- Prijs -->
             <StackPanel Orientation="Horizontal" Margin="0,5">
                 <TextBlock Text="Prijs: " Foreground="White" FontWeight="Bold"/>
-                <TextBlock Text="{Binding SelectedCar.Price, StringFormat=C}" Foreground="White"/>
+                <TextBlock Text="{Binding SelectedCar.Price, StringFormat=C, TargetNullValue='N/A'}" Foreground="White"/>
             </StackPanel>
         </StackPanel>
     </Grid>

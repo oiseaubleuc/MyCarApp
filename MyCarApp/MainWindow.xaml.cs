@@ -5,12 +5,9 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
-using Microsoft.EntityFrameworkCore;
-using MyCarApp.Models;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
+using MyCarApp.Views;
+using MyCarApp.ViewModels;
+
 
 namespace MyCarApp
 {
