@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using System.Data;
 using System.Windows;
+using MyCarApp.Models;
 
 namespace MyCarApp
 {
@@ -8,9 +9,7 @@ namespace MyCarApp
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            base.OnStartup(e);
-            Login loginWindow = new Login();
-            loginWindow.Show();
+           
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿
 
+using MyCarApp.Models.MyCarApp.Models;
 using System.Collections.Generic;
 
 namespace MyCarApp.Models
@@ -10,6 +11,6 @@ namespace MyCarApp.Models
         public string Name { get; set; }
 
         // Navigatie-eigenschap voor de relatie terug naar Car
-        public ICollection<Car> Cars { get; set; }
+        public ICollection<vehicle> Vehicles { get; set; }
     }
 }

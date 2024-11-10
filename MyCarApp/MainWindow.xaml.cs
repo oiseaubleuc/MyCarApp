@@ -1,13 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyCarApp.Models;
+using MyCarApp.Models.MyCarApp.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-
-using MyCarApp.Views;
-using MyCarApp.ViewModels;
-
 
 namespace MyCarApp
 {
@@ -15,17 +12,12 @@ namespace MyCarApp
     {
         private int _currentPage = 1;
         private const int _itemsPerPage = 10;
-        private List<Car> _cars;
+        private List<vehicle> _vehicles;
 
         public MainWindow()
         {
             InitializeComponent();
-            if (!System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
-            {
-                DataContext = new CarViewModel();
-                LoadCars();
-                SetupFilters();
-            }
+            LoadCars();
         }
 
         private void LoadCars()
@@ -34,7 +26,7 @@ namespace MyCarApp
             {
                 using (var context = new CarDealershipContext())
                 {
-                    _cars = context.Cars.Include(c => c.FuelType).ToList();
+                    _vehicles = context.Vehicles.Include(c => c.FuelTypeId).ToList();
                 }
                 UpdateCarListView();
             }
@@ -46,16 +38,49 @@ namespace MyCarApp
 
         private void UpdateCarListView()
         {
-            try
+            var carsToShow = _vehicles.Skip((_currentPage - 1) * _itemsPerPage).Take(_itemsPerPage).ToList();
+            // Je kunt hier een ListView of andere controle instellen om auto's te tonen.
+            // Bijvoorbeeld: CarListView.ItemsSource = carsToShow;
+        }
+
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            FilterCars();
+        }
+
+        private void FilterCars()
+        {
+            // Deze functie past de filters toe op basis van de invoerwaarden uit de TextBoxen en ComboBoxen.
+            var minPrice = GetComboBoxValueAsInt(MinPriceComboBox);
+            var maxPrice = GetComboBoxValueAsInt(MaxPriceComboBox);
+            var minKm = GetComboBoxValueAsInt(MinKilometerstandComboBox);
+            var maxKm = GetComboBoxValueAsInt(MaxKilometerstandComboBox);
+            var minYear = GetComboBoxValueAsInt(MinJaarComboBox);
+            var maxYear = GetComboBoxValueAsInt(MaxJaarComboBox);
+
+            var filteredCars = _vehicles.Where(c =>
+                (string.IsNullOrWhiteSpace(ModelTextBox.Text) || c.Model.Contains(ModelTextBox.Text)) &&
+                (string.IsNullOrWhiteSpace(LocationTextBox.Text) || c.Location.Contains(LocationTextBox.Text)) &&
+                (!minPrice.HasValue || c.Price >= minPrice) &&
+                (!maxPrice.HasValue || c.Price <= maxPrice) &&
+                (!minKm.HasValue || c.Kilometerstand >= minKm) &&
+                (!maxKm.HasValue || c.Kilometerstand <= maxKm) &&
+                (!minYear.HasValue || c.Jaar >= minYear) &&
+                (!maxYear.HasValue || c.Jaar <= maxYear)
+            ).ToList();
+
+            // Update de UI met de gefilterde resultaten
+            // CarListView.ItemsSource = filteredCars;
+        }
+
+        private int? GetComboBoxValueAsInt(ComboBox comboBox)
+        {
+            if (comboBox.SelectedItem is ComboBoxItem selectedItem)
             {
-                var carsToShow = _cars.Skip((_currentPage - 1) * _itemsPerPage).Take(_itemsPerPage).ToList();
-                CarListView.ItemsSource = carsToShow;
-                PageInfoTextBlock.Text = $"Pagina {_currentPage} van {(_cars.Count + _itemsPerPage - 1) / _itemsPerPage}";
+                int.TryParse(selectedItem.Content.ToString(), out int value);
+                return value;
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Fout bij het updaten van de lijst: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            return null;
         }
 
         private void PreviousPage_Click(object sender, RoutedEventArgs e)
@@ -69,75 +94,11 @@ namespace MyCarApp
 
         private void NextPage_Click(object sender, RoutedEventArgs e)
         {
-            if (_currentPage * _itemsPerPage < _cars.Count)
+            if (_currentPage * _itemsPerPage < _vehicles.Count)
             {
                 _currentPage++;
                 UpdateCarListView();
             }
         }
-
-        private void AddCar_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                AddCar addCarWindow = new AddCar();
-                addCarWindow.ShowDialog();
-                LoadCars();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Fout bij het toevoegen van een auto: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void SetupFilters()
-        {
-            try
-            {
-                ModelFilterTextBox.TextChanged += ModelFilterTextBox_TextChanged;
-                ColorFilterTextBox.TextChanged += ColorFilterTextBox_TextChanged;
-                FuelTypeFilterComboBox.SelectionChanged += FuelTypeFilterComboBox_SelectionChanged;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Fout bij het instellen van filters: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void ModelFilterTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            FilterCars();
-        }
-
-        private void ColorFilterTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            FilterCars();
-        }
-
-        private void FuelTypeFilterComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            FilterCars();
-        }
-
-        private void FilterCars()
-        {
-            try
-            {
-                var selectedFuelType = FuelTypeFilterComboBox.SelectedItem as ComboBoxItem;
-                string fuelType = selectedFuelType?.Content.ToString();
-
-                var filteredCars = _cars.Where(c =>
-                    (string.IsNullOrWhiteSpace(ModelFilterTextBox.Text) || c.Model.Contains(ModelFilterTextBox.Text)) &&
-                    (string.IsNullOrWhiteSpace(ColorFilterTextBox.Text) || c.Color.Contains(ColorFilterTextBox.Text)) &&
-                    (FuelTypeFilterComboBox.SelectedIndex == 0 || c.FuelType.Name == fuelType)).ToList();
-
-                CarListView.ItemsSource = filteredCars.Skip((_currentPage - 1) * _itemsPerPage).Take(_itemsPerPage).ToList();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Fout bij het filteren van auto's: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
     }
 }
-

@@ -1,4 +1,4 @@
-﻿using MyCarApp.Models;
+﻿using MyCarApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,15 +12,23 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows;
+using MyCarApp.ViewModels;
+using MyCarApp.Models;
 
-namespace MyCarApp
+
+
+
+
+namespace MyCarApp.Views
 {
-    public partial class CarDetailsWindow : Window
+    public partial class DashboardWindow : Window
     {
-        public CarDetailsWindow(Car selectedCar)
+        public DashboardWindow()
         {
             InitializeComponent();
-            CarDetailsTextBlock.Text = $"Model: {selectedCar.Model}\nPrijs: {selectedCar.Price}\nKleur: {selectedCar.Color}";
+            DataContext = new DashboardViewModel(); 
         }
     }
 }
+

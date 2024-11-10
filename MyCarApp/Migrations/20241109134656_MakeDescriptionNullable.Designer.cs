@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyCarApp.Models;
 
@@ -10,9 +11,11 @@ using MyCarApp.Models;
 namespace MyCarApp.Migrations
 {
     [DbContext(typeof(CarDealershipContext))]
-    partial class CarDealershipContextModelSnapshot : ModelSnapshot
+    [Migration("20241109134656_MakeDescriptionNullable")]
+    partial class MakeDescriptionNullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.10");
@@ -61,11 +64,8 @@ namespace MyCarApp.Migrations
                         new
                         {
                             Id = 1,
-                            CategoryId = 1,
                             Color = "Zwart",
-                            Description = "Luxe compact model",
                             FuelTypeId = 1,
-                            ImagePath = "path/to/image1.jpg",
                             Model = "Audi A3",
                             Price = 20000m,
                             ViewCount = 0
@@ -73,11 +73,8 @@ namespace MyCarApp.Migrations
                         new
                         {
                             Id = 2,
-                            CategoryId = 1,
                             Color = "Wit",
-                            Description = "Sportieve SUV",
                             FuelTypeId = 2,
-                            ImagePath = "path/to/image2.jpg",
                             Model = "BMW X5",
                             Price = 35000m,
                             ViewCount = 0

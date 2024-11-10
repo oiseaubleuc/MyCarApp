@@ -1,0 +1,73 @@
+﻿<Window x:Class="MyCarApp.Views.CarList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Advertentielijst" Height="600" Width="800"
+        Background="Black">
+
+    <Window.Resources>
+        <!-- Stijlen voor tekstvakken en knoppen -->
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="BorderBrush" Value="Orange"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Margin" Value="5,0,0,5"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <StackPanel Margin="10">
+            <!-- Titel -->
+            <TextBlock Text="Advertentielijst" FontSize="24" FontWeight="Bold" Foreground="Orange" Margin="10,0,0,10"/>
+
+            <!-- Zoekfilters -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBox x:Name="ModelTextBox" Width="200" Margin="5" ToolTip="Merk of model van auto"/>
+                <TextBox x:Name="LocationTextBox" Width="200" Margin="5" ToolTip="Plaatsnaam (bijv. Brussel, Antwerpen)"/>
+
+                <ComboBox x:Name="MinPriceComboBox" Width="100" Margin="5" ToolTip="Min. prijs"/>
+                <ComboBox x:Name="MaxPriceComboBox" Width="100" Margin="5" ToolTip="Max. prijs"/>
+
+                <ComboBox x:Name="MinKilometerstandComboBox" Width="100" Margin="5" ToolTip="Min. kilometerstand"/>
+                <ComboBox x:Name="MaxKilometerstandComboBox" Width="100" Margin="5" ToolTip="Max. kilometerstand"/>
+
+                <ComboBox x:Name="MinJaarComboBox" Width="100" Margin="5" ToolTip="Min. jaar"/>
+                <ComboBox x:Name="MaxJaarComboBox" Width="100" Margin="5" ToolTip="Max. jaar"/>
+
+                <Button x:Name="SearchButton" Content="Auto zoeken" Background="Orange" Foreground="White" Margin="5" Padding="5" Click="SearchButton_Click"/>
+            </StackPanel>
+
+            <!-- Lijst van auto's -->
+            <ListView x:Name="CarListView" Margin="0,0,0,10" Background="Black" BorderBrush="Orange" BorderThickness="1">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="Orange" BorderThickness="0,0,0,1" Padding="10" Background="Black">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{Binding ImagePath}" Width="100" Height="75" Margin="0,0,10,0"/>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Model}" FontWeight="Bold" FontSize="16" Foreground="White"/>
+                                    <TextBlock Text="{Binding Price, StringFormat=C}" FontSize="14" Foreground="Orange"/>
+                                    <TextBlock Text="{Binding Location}" FontSize="12" Foreground="White"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Km: " FontSize="12" Foreground="White"/>
+                                        <TextBlock Text="{Binding Kilometerstand}" FontSize="12" Foreground="White" Margin="0,0,10,0"/>
+                                        <TextBlock Text="Jaar: " FontSize="12" Foreground="White"/>
+                                        <TextBlock Text="{Binding Year}" FontSize="12" Foreground="White"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+    </Grid>
+</Window>

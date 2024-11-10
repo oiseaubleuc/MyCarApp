@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "MyCarApp": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Users\\houdaifa.hamouchi\\Desktop\\MyCarApp\\MyCarApp\\bin\\Debug\\net8.0-windows\\"
+    }
+  }
+}

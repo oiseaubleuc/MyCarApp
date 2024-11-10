@@ -1,8 +1,0 @@
-﻿<Window x:Class="MyCarApp.CarDetailsWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Car Details" Height="300" Width="400">
-    <Grid>
-        <TextBlock x:Name="CarDetailsTextBlock" Text="Details van de auto" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16"/>
-    </Grid>
-</Window>
